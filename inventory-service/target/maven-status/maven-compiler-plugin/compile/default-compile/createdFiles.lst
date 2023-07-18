@@ -1,0 +1,10 @@
+com\onlineshopping\inventoryservice\service\InventoryService.class
+com\onlineshopping\inventoryservice\dto\InventoryRequest.class
+com\onlineshopping\inventoryservice\InventoryServiceApplication.class
+com\onlineshopping\inventoryservice\controller\InventoryController.class
+com\onlineshopping\inventoryservice\dto\InventoryResponse$InventoryResponseBuilder.class
+com\onlineshopping\inventoryservice\dto\InventoryResponse.class
+com\onlineshopping\inventoryservice\repository\InventoryRepository.class
+com\onlineshopping\inventoryservice\model\Inventory$InventoryBuilder.class
+com\onlineshopping\inventoryservice\dto\InventoryRequest$InventoryRequestBuilder.class
+com\onlineshopping\inventoryservice\model\Inventory.class

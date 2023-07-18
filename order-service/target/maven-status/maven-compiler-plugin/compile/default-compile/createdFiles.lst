@@ -1,0 +1,14 @@
+com\onlineshopping\orderservice\dto\OrderRequest.class
+com\onlineshopping\orderservice\dto\OrderResponse.class
+com\onlineshopping\orderservice\model\OrderLineItems.class
+com\onlineshopping\orderservice\repository\OrderRepository.class
+com\onlineshopping\orderservice\dto\OrderRequest$OrderRequestBuilder.class
+com\onlineshopping\orderservice\controller\OrderController.class
+com\onlineshopping\orderservice\dto\OrderLineItemsDto$OrderLineItemsDtoBuilder.class
+com\onlineshopping\orderservice\OrderServiceApplication.class
+com\onlineshopping\orderservice\dto\OrderLineItemsDto.class
+com\onlineshopping\orderservice\model\Order$OrderBuilder.class
+com\onlineshopping\orderservice\model\OrderLineItems$OrderLineItemsBuilder.class
+com\onlineshopping\orderservice\service\OrderService.class
+com\onlineshopping\orderservice\model\Order.class
+com\onlineshopping\orderservice\dto\OrderResponse$OrderResponseBuilder.class
