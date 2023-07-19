@@ -1,4 +1,5 @@
 package com.onlineshopping.orderservice.service;
+import com.onlineshopping.orderservice.dto.InventoryResponse;
 import com.onlineshopping.orderservice.dto.OrderLineItemsDto;
 import com.onlineshopping.orderservice.dto.OrderRequest;
 import com.onlineshopping.orderservice.dto.OrderResponse;
@@ -8,7 +9,9 @@ import com.onlineshopping.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,12 +23,35 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
+    private final WebClient webClient;
+
     public void plcaeOrder(OrderRequest orderRequest){
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
         List<OrderLineItems> items = orderRequest.getOrderLineItemsDtos();
         order.setOrderLineItemms(items);
-        orderRepository.save(order);
+
+        List<String> skuCodesList = order.getOrderLineItemms().stream().map(OrderLineItems::getSkuCode).toList();
+
+
+        // talks to inventory service to check availability of products
+
+        InventoryResponse[] invnetoryResponseArray = webClient.get()
+                .uri("http://localhost:8083/api/inventory",
+                        uriBuilder -> uriBuilder.queryParam("skuCode",skuCodesList).build())
+                .retrieve()
+                .bodyToMono(InventoryResponse[].class)
+                .block();
+
+        boolean allProductsInStock = Arrays.stream(invnetoryResponseArray).allMatch(InventoryResponse::isInStock);
+
+        if(Boolean.TRUE.equals(allProductsInStock)){
+            orderRepository.save(order);
+        }
+        else{
+            throw new IllegalArgumentException("Product is not in Stock!! Please try again later");
+        }
+
     }
 
     private List<OrderLineItemsDto> MapToResponse(List<OrderLineItems> orderLineItems) {
