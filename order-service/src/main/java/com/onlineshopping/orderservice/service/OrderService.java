@@ -23,7 +23,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     public void plcaeOrder(OrderRequest orderRequest){
         Order order = new Order();
@@ -36,8 +36,8 @@ public class OrderService {
 
         // talks to inventory service to check availability of products
 
-        InventoryResponse[] invnetoryResponseArray = webClient.get()
-                .uri("http://localhost:8083/api/inventory",
+        InventoryResponse[] invnetoryResponseArray = webClientBuilder.build().get()
+                .uri("http://inventory-service/api/inventory",
                         uriBuilder -> uriBuilder.queryParam("skuCode",skuCodesList).build())
                 .retrieve()
                 .bodyToMono(InventoryResponse[].class)
